@@ -1,13 +1,13 @@
-import {View} from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 
 import Button from './button';
-import {Search, Bookmark, RotateCcw} from './icons';
+import { Search, Bookmark, RotateCcw } from './icons';
 import Box from './box';
 
 import theme from '../utils/theme';
 
-function TabBar({state, descriptors, navigation}) {
+function TabBar({ state, descriptors, navigation }) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
   if (focusedOptions.tabBarVisible === false) {
@@ -15,9 +15,9 @@ function TabBar({state, descriptors, navigation}) {
   }
 
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={{ flexDirection: 'row' }}>
       {state.routes.map((route, index) => {
-        const {options} = descriptors[route.key];
+        const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
@@ -46,7 +46,8 @@ function TabBar({state, descriptors, navigation}) {
               size={56}
               bg="red"
               borderRadius="full"
-              onPress={onPress}>
+              onPress={onPress}
+            >
               <Search stroke="white" />
             </Button>
           </Box>
@@ -57,7 +58,8 @@ function TabBar({state, descriptors, navigation}) {
             height={56}
             flex={1}
             flexDirection="column"
-            onPress={onPress}>
+            onPress={onPress}
+          >
             {label === 'History' && <RotateCcw stroke={theme.colors.gray} />}
             {label === 'Favorite' && <Bookmark stroke={theme.colors.gray} />}
             {<Box size={3} bg={isFocused ? 'red' : 'white'} mt={6} />}
