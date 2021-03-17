@@ -31,7 +31,7 @@ function TabBar({ state, descriptors, navigation }) {
           const event = navigation.emit({
             type: 'tabPress',
             target: route.key,
-            canPreventDefault: true,
+            canPreventDefault: true
           });
 
           if (!isFocused && !event.defaultPrevented) {
@@ -41,13 +41,7 @@ function TabBar({ state, descriptors, navigation }) {
 
         return label === 'Search' ? (
           <Box key={label} p={15} mt={-15} bg="white" borderRadius="full">
-            <Button
-              key={label}
-              size={56}
-              bg="red"
-              borderRadius="full"
-              onPress={onPress}
-            >
+            <Button size={56} bg="red" borderRadius="full" onPress={onPress}>
               <Search stroke="white" />
             </Button>
           </Box>
