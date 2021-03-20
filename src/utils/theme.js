@@ -2,7 +2,7 @@ const space = [];
 
 const radii = {
   normal: 6,
-  full: 9999,
+  full: 9999
 };
 
 const colors = {
