@@ -3,16 +3,24 @@ import { Button, View } from 'react-native';
 
 import BoxCenter from '../components/box-center';
 import Logo from '../components/icons/Logo';
+import SearchBox from '../components/search';
+import Box from '../components/box';
 
 function SearchView({ navigation }) {
   return (
-    <BoxCenter>
+    <Box>
       <Button
         title="Go to Details"
         onPress={() => navigation.navigate('Detail')}
       />
-      <Logo color="red" />
-    </BoxCenter>
+      <Box py={20}>
+        <Logo width={120} color="red" />
+      </Box>
+
+      <Box p={5}>
+        <SearchBox />
+      </Box>
+    </Box>
   );
 }
 
