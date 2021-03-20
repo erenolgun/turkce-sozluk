@@ -1,11 +1,20 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import { Text, SafeAreaView, StatusBar } from 'react-native';
+import Box from '../components/box';
+import { useIsFocused } from '@react-navigation/native';
+
+function FocusAwareStatusBar(props) {
+  const isFocused = useIsFocused();
+
+  return isFocused ? <StatusBar {...props} /> : null;
+}
 
 function HistoryView() {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <Box as={SafeAreaView} flex={1}>
+      <FocusAwareStatusBar barStyle="dark-content" />
       <Text>Geçmiş</Text>
-    </View>
+    </Box>
   );
 }
 
