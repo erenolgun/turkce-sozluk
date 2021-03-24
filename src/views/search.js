@@ -10,44 +10,60 @@ import Bg from '../components/bg';
 
 import { CardSummary, CardTitle, CardContainer } from '../components/card';
 
+const DATA = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+    summary: 'First Summary'
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+    summary: 'Second Summary'
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+    summary: 'Third Summary'
+  }
+];
+
+const HERO_HEIGHT = 230;
+
 function SearchView({ navigation }) {
   const [isSearchFocus, setSearchFocus] = React.useState(false);
 
-  const heroHeight = React.useRef(new Animated.Value(285)).current; // Initial value for opacity: 0
+  const heroHeight = React.useRef(new Animated.Value(HERO_HEIGHT)).current;
+  const bgOpacity = React.useRef(new Animated.Value(1)).current;
 
   React.useEffect(() => {
     if (isSearchFocus) {
+      // bg-opacity
+      Animated.timing(bgOpacity, {
+        toValue: 0,
+        duration: 230,
+        useNativeDriver: false
+      }).start();
+      // hero-height
       Animated.timing(heroHeight, {
         toValue: 84,
         duration: 230,
         useNativeDriver: false
       }).start();
     } else {
+      // bg-opacity
+      Animated.timing(bgOpacity, {
+        toValue: 1,
+        duration: 230,
+        useNativeDriver: false
+      }).start();
       Animated.timing(heroHeight, {
-        toValue: 285,
+        toValue: HERO_HEIGHT,
         duration: 230,
         useNativeDriver: false
       }).start();
     }
-  }, [heroHeight, isSearchFocus]);
-
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-      summary: 'First Summary'
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-      summary: 'Second Summary'
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-      summary: 'Third Summary'
-    }
-  ];
+  }, [bgOpacity, heroHeight, isSearchFocus]);
 
   return (
     <Box as={SafeAreaView} bg={isSearchFocus ? 'softRed' : 'red'} flex={1}>
@@ -60,13 +76,13 @@ function SearchView({ navigation }) {
         zIndex={1}
         height={heroHeight}
       >
-        {!isSearchFocus && (
-          <Bg>
+        <Box mt={-120} as={Animated.View} opacity={bgOpacity}>
+          <Bg pt={120} pb={26}>
             <Box flex={1} alignItems="center" justifyContent="center">
               <Logo width={120} color="white" />
             </Box>
           </Bg>
-        )}
+        </Box>
 
         {/* Search */}
         <Box
