@@ -9,6 +9,10 @@ import Box from '../components/box';
 import Bg from '../components/bg';
 
 import { CardSummary, CardTitle, CardContainer } from '../components/card';
+import {
+  SimpleCardContainer,
+  SimpleCardTitle
+} from '../components/simple-card';
 
 const DATA = [
   {
@@ -76,8 +80,8 @@ function SearchView({ navigation }) {
         zIndex={1}
         height={heroHeight}
       >
-        <Box mt={-120} as={Animated.View} opacity={bgOpacity}>
-          <Bg pt={120} pb={26}>
+        <Box mt={-60} as={Animated.View} opacity={bgOpacity}>
+          <Bg pt={60} pb={26}>
             <Box flex={1} alignItems="center" justifyContent="center">
               <Logo width={120} color="white" />
             </Box>
@@ -99,8 +103,24 @@ function SearchView({ navigation }) {
       {/* Content */}
       <Box flex={1} bg="softRed" pt={isSearchFocus ? 0 : 26}>
         {isSearchFocus ? (
-          <Box p={30} flex={1}>
-            <Text>Geçmiş</Text>
+          <Box flex={1}>
+            <FlatList
+              style={{ padding: 16 }}
+              keyExtractor={(item) => item.id}
+              data={DATA}
+              renderItem={({ item }) => (
+                <Box py={6}>
+                  <SimpleCardContainer>
+                    <SimpleCardTitle>{item.title}</SimpleCardTitle>
+                  </SimpleCardContainer>
+                </Box>
+              )}
+              ListHeaderComponent={
+                <Text color="textLight" mb={10}>
+                  Arama Geçmişi
+                </Text>
+              }
+            />
           </Box>
         ) : (
           <Box px={16} py={40} flex={1}>
@@ -129,19 +149,6 @@ function SearchView({ navigation }) {
                 </CardSummary>
               </CardContainer>
             </Box>
-
-            {/*<FlatList
-              data={DATA}
-              renderItem={({ item }) => (
-                <Box py={5}>
-                  <CardContainer>
-                    <CardTitle>{item.title}</CardTitle>
-                    <CardSummary>{item.summary}</CardSummary>
-                  </CardContainer>
-                </Box>
-              )}
-              keyExtractor={(item) => item.id}
-            />*/}
           </Box>
         )}
       </Box>
