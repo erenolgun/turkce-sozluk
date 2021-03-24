@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { Text, ImageBackground, StatusBar, Animated } from 'react-native';
+import { StatusBar, Animated, FlatList } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 
 import Logo from '../components/icons/Logo';
 import SearchBox from '../components/search';
+import Text from '../components/text';
 import Box from '../components/box';
 import Bg from '../components/bg';
 
-import bg from '../assets/bg.jpeg';
+import { CardSummary, CardTitle, CardContainer } from '../components/card';
 
-function SearchView() {
+function SearchView({ navigation }) {
   const [isSearchFocus, setSearchFocus] = React.useState(false);
 
   const heroHeight = React.useRef(new Animated.Value(285)).current; // Initial value for opacity: 0
@@ -18,17 +19,35 @@ function SearchView() {
     if (isSearchFocus) {
       Animated.timing(heroHeight, {
         toValue: 84,
-        duration: 200,
+        duration: 230,
         useNativeDriver: false
       }).start();
     } else {
       Animated.timing(heroHeight, {
         toValue: 285,
-        duration: 200,
+        duration: 230,
         useNativeDriver: false
       }).start();
     }
   }, [heroHeight, isSearchFocus]);
+
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'First Item',
+      summary: 'First Summary'
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      title: 'Second Item',
+      summary: 'Second Summary'
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      title: 'Third Item',
+      summary: 'Third Summary'
+    }
+  ];
 
   return (
     <Box as={SafeAreaView} bg={isSearchFocus ? 'softRed' : 'red'} flex={1}>
@@ -68,8 +87,45 @@ function SearchView() {
             <Text>Geçmiş</Text>
           </Box>
         ) : (
-          <Box p={30} flex={1}>
-            <Text>Öneri</Text>
+          <Box px={16} py={40} flex={1}>
+            <Box>
+              <Text color="textLight">Bir Deyim</Text>
+
+              <CardContainer
+                mt={10}
+                onPress={() => navigation.navigate('Detail')}
+              >
+                <CardTitle>on para</CardTitle>
+                <CardSummary>çok az (para).</CardSummary>
+              </CardContainer>
+            </Box>
+
+            <Box mt={40}>
+              <Text color="textLight">Bir Deyim - Atasözü</Text>
+
+              <CardContainer
+                mt={10}
+                onPress={() => navigation.navigate('Detail')}
+              >
+                <CardTitle>siyem siyem ağlamak</CardTitle>
+                <CardSummary>
+                  hafif hafif, ince ince, durmadan göz yaşı dökmek.
+                </CardSummary>
+              </CardContainer>
+            </Box>
+
+            {/*<FlatList
+              data={DATA}
+              renderItem={({ item }) => (
+                <Box py={5}>
+                  <CardContainer>
+                    <CardTitle>{item.title}</CardTitle>
+                    <CardSummary>{item.summary}</CardSummary>
+                  </CardContainer>
+                </Box>
+              )}
+              keyExtractor={(item) => item.id}
+            />*/}
           </Box>
         )}
       </Box>
