@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Text, ImageBackground, StatusBar, Animated } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 
-import BoxCenter from '../components/box-center';
 import Logo from '../components/icons/Logo';
 import SearchBox from '../components/search';
 import Box from '../components/box';
+import Bg from '../components/bg';
 
 import bg from '../assets/bg.jpeg';
 
@@ -42,16 +42,11 @@ function SearchView() {
         height={heroHeight}
       >
         {!isSearchFocus && (
-          <Box
-            as={ImageBackground}
-            source={bg}
-            style={{ width: '100%', height: '100%' }}
-          >
-            {/* Logo */}
+          <Bg>
             <Box flex={1} alignItems="center" justifyContent="center">
               <Logo width={120} color="white" />
             </Box>
-          </Box>
+          </Bg>
         )}
 
         {/* Search */}
